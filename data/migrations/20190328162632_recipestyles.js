@@ -10,6 +10,14 @@ exports.up = function(knex, Promise) {
       .onDelete('CASCADE')
       .onUpdate('CASCADE');
     tbl
+      .integer('recipe_id')
+      .unsigned()
+      .notNullable()
+      .references('id')
+      .inTable('recipes')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE');
+    tbl
       .string('name', 128)
       .notNullable()
       .unique();
