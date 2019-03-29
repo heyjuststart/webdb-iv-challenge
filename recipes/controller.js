@@ -16,6 +16,26 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const recipe = await Recipes.getById(req.params.id);
+
+    if (recipe) {
+      res.status(200).json(recipe);
+    } else {
+      res
+        .status(404)
+        .json({ message: 'The recipe with the specified ID does not exist.' });
+    }
+  } catch (error) {
+    // log error to database
+    console.log(error);
+    res.status(500).json({
+      error: 'The recipe information could not be retrieved.'
+    });
+  }
+});
+
 router.post('/', async (req, res) => {
   try {
     if (!req.body.name) {
